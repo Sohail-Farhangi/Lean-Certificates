@@ -1,0 +1,306 @@
+A GENERALIZATION OF VAN DER CORPUT'S DIFFERENCE THEOREM
+Reader's guide to the Lean 4 certificate for the paper by Sohail Farhangi
+
+Compare the certificate to arXiv:2106.01123v6 (15 August 2024).
+https://arxiv.org/abs/2106.01123v6
+
+The guide uses public v6 numbering. The labels in parentheses also identify
+the corresponding statements in the author's supplied LaTeX. The project
+entry point is VdC.lean. Audit.lean checks the transitive axiom dependencies.
+
+SHA-256 of the supplied LaTeX text
+    E3EFC6CAA0A60C47C20637DAD7AB4F5816916383AB691949E1CFB9F747D23535
+
+Run the following commands from this directory to replay the certificate
+with the pinned Lean toolchain and Mathlib revision.
+
+    lake exe cache get
+    lake build
+    lake env lean Audit.lean
+
+For the first command, network access is needed to obtain any missing Lean or
+Mathlib dependencies. The local build can use an already populated cache.
+
+The project pins Lean 4.36.0 and Mathlib commit
+fc4f59e577feb1a4956671bc04ac18aaaf8cd842. The permitted transitive axioms
+are propext, Classical.choice, and Quot.sound.
+
+NOTATION AND QUANTIFIERS
+
+VdC/Basic.lean — Lean sequences have domain Nat. The paper's term x_n becomes
+x (n-1). Thus `Finset.range N` is precisely the first N terms. `cesaro` and
+`realCesaro` divide by N. The value at N=0 has no effect on the limits. In
+`corr x y h N` the shift is on x and `star` conjugates y. A positive lag in a
+lag average or a series is written `h + 1` with h ranging over Nat.
+
+`PermissibleTriple x y N` requires bounded sequences and a strictly increasing
+N, with limits for the four ordered pairs xx, xy, yx and yy at every
+nonnegative lag. `CorrLimits` records the limit function itself. A refinement
+keeps the original increasing N and composes it with one increasing selector.
+In particular, the refinement depends on the family of correlations, and the
+same selector works at all lags. For each h, `limsup ... atTop` is over the
+averaging length N before summing or averaging over h.
+
+`CompactAlong` uses finite covers in the limiting squared shift distance. Each
+positive shift m may use one of finitely many positive shifts k, with limiting
+distance less than epsilon. A bound by epsilon/2 in this formulation gives the
+strict inequality for the supremum in the manuscript. `CompactSeq` uses the
+identity sequence of averaging lengths. `NearlyWeakMixing` averages the norm
+of the already existing cross-correlation limits.
+
+`measureFourier μ h` takes the coefficient with the negative Fourier sign.
+`HasSpectrum r μ` matches the nonnegative coefficients against r. μ is a
+positive finite measure on the unit circle. Absolute continuity is written
+`μ ≪ circleHaar`. The theorem `exists_integrable_density` verifies its density
+formulation.
+`MutuallySingular circleHaar` expresses the singular spectrum condition. The
+circle identifies the endpoints of a fundamental interval. Lean uses the
+complex autocorrelation itself in the spectral definitions, as required by
+the spectral-measure identity. The printed formulas (12) and (15) show
+absolute-value bars on the autocorrelation. The guide distinguishes this
+convention from the absolute values used in the discrepancy hypotheses.
+
+`Equidistributed μ x` tests convergence against every complex continuous
+function, with integral against μ. `testMean μ f = 0` is the paper's mean-zero
+condition. `torusHaar d` is the d-fold Haar probability, and `cubeLebesgue d`
+is Lebesgue probability on the actual closed cube. For products of cubes the
+certificate uses the product measure on two coordinate blocks.
+
+SECTION 2 — PRELIMINARIES
+
+Definition 2.1 (DefinitionOfDiscrepancy)
+  Rectangles.lean defines finite discrepancies over closed axis-parallel
+  rectangles by a supremum of absolute frequency-volume errors. The volume
+  is the product of side lengths. Difference sequences use their coordinatewise
+  [0,1) representatives. `upperDifferenceDiscrepancy` takes the length limsup
+  at each fixed lag. The certificate includes the finite bound 0 ≤ D_N ≤ 1.
+  RectangleMeasure.lean identifies the volume with cube Lebesgue measure,
+  identifies the empirical frequency with an indicator average, and proves
+  domination by any discrepancy bound over a family containing the closed
+  rectangles. `equidistributed_iff_rectangleDiscrepancy_tendsto_zero` in
+  ThesisWeakMixing.lean links the definition to continuous-test uniform
+  distribution.
+
+Definition 2.4 (PermissibleTriplesDefinition)
+  Basic.lean defines the triple. `exists_common_subsequence` and
+  `exists_permissible_refinement` in Permissible.lean construct refinements
+  using a countable product of closed complex discs. The discrepancy-only
+  permissible-pair definition of the paper is used in the separate thesis
+  theorem discussed below.
+
+Definitions 2.5 and 2.6 (MixingAndRigidSequencesDefinition / MixingAndRigidDistributionsDefinitions)
+  Basic.lean and SpectralSequences.lean define the five scalar classes.
+  Distribution.lean and Applications.lean define the corresponding continuous
+  test conditions. CompactSpectrum.lean proves `spectrallySingular_of_compactSeq`.
+  MixingHierarchy.lean verifies the spectral Lebesgue to weak mixing inclusion,
+  and Applications.lean gives weak mixing to equidistribution.
+
+Spectral realization related to Lemma 2.9 (WhyWeNeedPermissibleTriples)
+  Realization.lean uses finite Fourier polynomials and positive measures instead
+  of the manuscript's Hilbert space embedding. `exists_corr_spectrum` realizes
+  one autocorrelation function. `exists_joint_corr_spectrum` uses the same
+  permissible subsequence to realize the spectrum of every linear combination
+  of a finite family. The negative coefficients come from the reversed ordered
+  pair and conjugation. The polynomial density is squared modulus divided by N.
+  The resulting Fourier coefficients differ from the lag sums only by an end
+  correction that tends to zero. Weak compactness yields the limiting measure.
+
+Topological part of Lemma 2.10 (RepresentationLemma)
+  `bounded_sequence_orbit_representation` in OrbitRepresentation.lean realizes a
+  bounded sequence as a continuous coordinate on its compact metrizable shift
+  orbit closure. This covers the topological representation assertion.
+
+Lemma 2.11 (CreatingSpectrallyLebesgue/NWMSequences)
+  `spectrallyLebesgue_of_limsup_square_summable` in SpectralResults.lean bounds the
+  squares of subsequence coefficients by the full limsups. SpectralAC.lean uses
+  the circle's L² Fourier basis and uniqueness of Fourier coefficients of
+  measures to obtain absolute continuity. `nearlyWeakMixing_of_upper_corr` in
+  Permissible.lean converts the Cesàro-small autocorrelation majorant into the
+  required Cesàro-small cross-correlations with every bounded test sequence.
+
+Lemma 2.12 (ClosedUnderLinearClosureLemma)
+  Scalar addition and multiplication appear in SpectralResults.lean,
+  SpectralScalars.lean, Permissible.lean and CompactClosure.lean. The
+  mean-square closure theorems allow a different approximant at each tolerance.
+  The eventual mean-square error bound follows from an upper mean-square
+  error smaller than that tolerance. The singular closure argument uses a
+  countable union of null supports for the approximants.
+
+Corollary 2.13 and Weyl's criterion (CheckingForwm/sL/c/ss)
+  Weyl's criterion is `equidistributed_torus_iff` in Torus.lean. The two
+  `...Distribution_iff_torus_characters` theorems in FourierTests.lean extend the
+  wm and sL tests from nonzero characters to all continuous mean-zero torus
+  tests. Stone–Weierstrass yields uniform approximation by trigonometric
+  polynomials after centering. The cube versions are `cube_sLebesgue_iff_characters`
+  and `cube_weakMixing_iff_characters` in CubeDifference.lean. Cube.lean uses
+  continuous cutoffs that vanish at the boundary and tend to one in the
+  interior. Their periodic extensions allow centered cube tests to be
+  approximated in empirical mean square, including for sequences that contain
+  cube endpoints. HalfFrequency.lean uses the embedding x ↦ x/2 mod 1 to
+  obtain the half-frequency density. `cube_compact_iff_centeredHalfFrequencies`
+  and `cube_sSingular_iff_centeredHalfFrequencies` use exactly the nonzero
+  centered half-frequency tests g_m from the manuscript.
+
+Theorem 2.3 (SpecialCaseOfKHInequality)
+  `finite_fourier_rectangle_bound` in RectangleTransfer.lean is the cited
+  finite estimate, with `fourierDiscrepancyConstant m = (4π M)^d` and M the
+  largest magnitude among the frequency coordinates. RectangleFourier.lean
+  expands the character into integrals over coordinate thresholds. The finite
+  sample errors are bounded by the discrepancy of the associated rectangles.
+
+Lemma 2.14 and modulo-one sum application (ErgodicDichotomyForSequences)
+  SpectralOrthogonality.lean proves the measure-level orthogonality of an
+  absolutely continuous and a singular component. SpectralResults.lean and
+  SpectralScalars.lean recover the scalar product limit for these two classes.
+  `nearlyWeakMixing_mul_compact` in Permissible.lean handles compactness along
+  M directly, including M=id. Applications.lean applies both results to
+  characters for the modulo-one sum corollary.
+
+SECTION 3 — MAIN RESULTS
+
+Theorem 3.1(i) (PropertiesOfsLSequences)
+  `equidistributed_selected_of_sl_singular` and
+  `equidistributed_selected_of_wm_compact` in Applications.lean. The manuscript
+  includes positive lower density in the definition of a singular or compact
+  sequence of natural numbers. This is an explicit hypothesis in Lean.
+  `hasPositiveLowerDensity_iff` verifies the equivalence with positivity of
+  the liminf of the empirical range densities.
+  Selection.lean uses the identity that at averaging length σ(K)+1 the range
+  of σ has exactly K+1 points. The positive lower-density bound controls the
+  factor changing the normalization from σ(K)+1 to K+1.
+
+Theorem 3.1(iii) (PropertiesOfsLSequences)
+  `equidistributed_pair_of_sl_singular` and `equidistributed_pair_of_wm_compact`
+  in Applications.lean. The second coordinate is assumed equidistributed.
+  The proofs apply the dichotomy to tests with zero mean on the first
+  coordinate, then add back the two means for a general product test.
+  `equidistributed_prod_iff` extends product tests to all continuous tests
+  by Stone–Weierstrass. The two parts hold on the cube with `cubeLebesgue`,
+  and are expressed for compact probability spaces more generally.
+
+Theorems 3.2 and 3.3 (GeneralizationOfClassicalvdC / WeakMixingUDvdC)
+  The main statements are `cube_spectral_difference_theorem` and
+  `cube_weakMixing_difference_theorem` in CubeDifference.lean. Their only
+  substantive hypothesis on the sequence is the manuscript's square
+  summability or Cesàro hypothesis, respectively. Difference.lean checks the
+  passage from finite bounds to lagwise limsups. Rectangles.lean supplies the
+  finite discrepancies. The intermediate torus statements in FourierTests.lean
+  accept a `CharacterRectangleEstimate`, which `characterRectangleEstimate_all`
+  in RectangleTransfer.lean proves for every sequence. The cube conclusions
+  concern all continuous mean-zero tests on the closed cube.
+
+Theorem 3.4 (4CharacterizationsOfwmSequences)
+  `thesis_four_characterizations_weakMixing` in ThesisWeakMixing.lean is
+  Theorem 2.4.17 of Sohail Farhangi's Topics in Ergodic Theory and Ramsey
+  Theory (The Ohio State University, 2022). Reading it from the paper's
+  item (i), the three equivalences are with `ThesisCrossDiscrepancy` (ii),
+  `ThesisSelfDiscrepancy` (iii), and `ThesisDifferenceDiscrepancy` (iv).
+  `PermissiblePair` uses a single strictly increasing sequence of averaging
+  lengths on which one discrepancy limit exists at each positive lag.
+  Lean uses closed rectangles and positive dimensions in the theorem. The
+  cross criterion quantifies over every uniformly distributed comparison
+  sequence in every positive dimension, and shifts that comparison sequence.
+  The proof uses a finite Fourier test estimate proved by compactness and
+  Portmanteau, and uses one common refinement for all lags. The reverse
+  correlation estimate in Permissible.lean handles the shift on the second
+  sequence when applying the definition of nearly weakly mixing.
+
+  Primary source
+  https://etd.ohiolink.edu/acprod/odb_etd/r/etd/search/10?p10_accession_num=osu165203490336716
+
+Theorem 3.5 (CharacterizationOfOsequences)
+  `orthogonalDistribution_iff_lag_pairs` in LagPairs.lean and
+  `cube_orthogonal_iff_lag_pairs` in Cube.lean. From nearly orthogonal centered
+  tests, Orthogonal.lean uses a finite shift window to prove the mean vanishes.
+  Polarization with f+g and f+i*g obtains the mixed positive-lag correlations.
+  In the reverse direction one tests each joint lagged pair against
+  conjugate(f) ⊗ f. The cube specialization retains all positive lags.
+
+SECTION 4 — EXAMPLES
+
+Lemma 4.1 (LemmaConstructingSequences)
+  `ae_constructingSequences_cube` in ErgodicCubeExamples.lean gives all six
+  assertions on one conull set for the given system and the given positive
+  measure set A. `ae_tendsto_orbitCesaro` in BoundedPET.lean proves the bounded
+  pointwise ergodic theorem used in the argument. ErgodicExamples.lean passes
+  to the common full-measure set for all continuous tests and all lags, and
+  proves convergence of the frequencies of return times. ErgodicWeakMixing.lean
+  obtains the scalar Cesàro criterion from ergodicity of T × T.
+  ErgodicDiscrete.lean starts with density of the span of the actual L²
+  Koopman eigenvectors and uses bounded eigenfunction representatives for
+  the compactness conclusion. The Lebesgue and singular cases express the
+  system's hypotheses by absolutely continuous and singular spectral measures
+  for the corresponding observables. Orbit and visit indices start at zero.
+
+Thue–Morse and the generalized digit-sum residue lemma
+  `thueMorse_positive_spectrallySingular` gives the binary example.
+  `spectrallySingular_digitResidue_enumeration` gives the general base r ≥ 2
+  and residue 0 ≤ j < r. `tendsto_digitResidue_density` proves natural density
+  exactly 1/r. DigitExamples.lean gives one point per block of length r and
+  proves the roots-of-unity filter. DigitCorrelation.lean checks the carry
+  recursion on complete digit blocks and proves convergence of the full
+  autocorrelation averages. DigitLacunary.lean and DigitSpectrum.lean use
+  the coefficients at r^k and r^k−1 to distinguish the spectral measure from
+  Haar measure by two different mean-square limits of the same continuous
+  tests. SpectralSeparation.lean proves that this distinction gives mutual
+  singularity. The certificate proves the spectral input for the characters
+  used by the residue filter. Lean uses the
+  base-r digit word indexed starting at zero, so the residue-zero selection
+  includes 0. Omitting that initial entry gives the paper's positive-index
+  enumeration and has no effect on the density or spectral limits.
+
+Lemma 4.2 (ExampleNecessitatingPermissibleTriples)
+  `exampleNecessitatingPermissibleTriples` in DuplicationExample.lean proves
+  the existence of an sL-sequence with upper discrepancy exactly 1/2 at every
+  positive lag. `duplicationCube_example` works for every irrational quadratic
+  coefficient, and the existential statement uses √2. Lean keeps the paper's
+  doubled-square construction, uses Cantor pairing to repeat the block lengths,
+  and chooses stage lengths to dominate finitely many geometric-sum bounds.
+  DuplicationEstimates.lean shows that the masked Fourier averages tend to
+  zero at any fixed positive lag. For each prefix, each index contributes to
+  at most one intentional coincidence lag. DuplicationSpectrum.lean uses this
+  to get summable autocorrelation magnitudes in each permissible limit.
+  DuplicationDiscrepancy.lean removes coincident positions, proves uniform
+  distribution of the retained differences, and bounds the erased fraction
+  by 1/2 + h/(2N) for lag h. The lower bound comes from the stages at which the
+  prescribed length matches h and half the entries are repeated.
+  `duplicationCube_not_orthogonal` gives the consequence that this sequence
+  fails the o-sequence criterion.
+
+Lemma 4.3 (PolynomialLikeCounterExample)
+  `polynomialLikeCounterExample` in PolynomialExample.lean verifies that the
+  piecewise-quadratic sequence is sL, that its differences are uniformly
+  distributed at every positive lag, and that its lag pairs are uniformly
+  distributed exactly when h > 1. It verifies the resulting failure of the
+  o-sequence condition. `polynomialLike_lag_one_fourier_half` gives the explicit
+  limiting Fourier coefficient 1/2 at frequency (2,−1). PolynomialPhases.lean
+  proves the needed linear and quadratic equidistribution estimates, and
+  ResidueAverages.lean gives the parity decomposition of the Cesàro averages.
+
+INTRODUCTION AND SCOPE
+
+The classical difference theorem appears as `equidistributed_of_cube_differences`
+and `equidistributed_of_torus_differences`. The preliminary Fourier criteria
+appear as `cube_spectral_difference_from_fourier` and
+`cube_weakMixing_difference_from_fourier`. These use all nonzero signed
+integer frequency vectors and are stated in arbitrary finite dimension.
+In dimension one the positive frequencies in the manuscript suffice because
+the negative-frequency character is its conjugate and the norms agree.
+
+Scope of the checked results
+
+The checked part of Theorem 3.1 covers the sufficient hypotheses in (i) and
+(iii). The implications (ii) and (iv) use a compact component on a chosen
+correlation subsequence. Those converse implications are outside the current
+proof library. The finite-dimensional positive-measure construction related
+to Lemma 2.9 realizes the needed correlations without forming the exact
+Hilbert-space embedding. The certificate proves the topological part of
+Lemma 2.10. The discrete-spectrum assertion about its empirical measures
+remains outside the proof library. The power, square-root, and phase
+statements of Lemma 2.15 are also outside the current scope.
+
+The proof library gives qualitative rotation discrepancy for every irrational
+rotation. It does not include the cited algebraic irrational discrepancy
+rate in Theorem 2.2 or the introductory classical variants for arbitrary
+Hilbert spaces. The paper's closed-cube results and its examples have their
+own declarations, with the conventions and geometric changes described above.
