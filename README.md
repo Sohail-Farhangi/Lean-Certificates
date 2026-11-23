@@ -14,4 +14,13 @@ The certificate incorporates the authors’ supplied contraction hypothesis in T
 - [Standalone source and reader guide](On%20the%20Jacobs-de%20Leeuw-Glicksberg%20decomposition%20for%20representations%20of%20semigroups/Standalone/)
 - [Palomar modular snapshot](https://github.com/Sohail-Farhangi/Lean-Certificates/tree/a13fecab8f78d9de936d2c6961828469239873ce) · a13fecab8f78d9de936d2c6961828469239873ce
 
+## A generalization of van der Corput's Difference Theorem
+
+The reader guide identifies the statements and examples covered by this certificate.
+
+- [Paper](https://arxiv.org/abs/2106.01123v6)
+- [Lean Pool / Palomar project and README](A%20generalization%20of%20van%20der%20Corput%27s%20Difference%20Theorem/LeanPool-Palomar/README.md)
+- [Standalone source and reader guide](A%20generalization%20of%20van%20der%20Corput%27s%20Difference%20Theorem/Standalone/)
+- [Palomar modular snapshot](https://github.com/Sohail-Farhangi/Lean-Certificates/tree/ddcda4a6251d520a923d92dd810b0f07ccd13086) · ddcda4a6251d520a923d92dd810b0f07ccd13086
+
 The Lean certificate files are available under [Apache-2.0](LICENSE).

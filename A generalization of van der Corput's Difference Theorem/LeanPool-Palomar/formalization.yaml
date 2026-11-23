@@ -1,0 +1,81 @@
+version: v0.4
+
+project:
+  name: A generalization of van der Corput's Difference Theorem
+  description: >-
+    Source-based formalization of spectral and weak-mixing difference criteria
+    and the characterization of orthogonal sequences on the closed finite cube.
+    Square summability of the lagwise upper discrepancies gives the spectral
+    Lebesgue condition. Cesàro convergence to zero gives weak mixing. A sequence
+    is orthogonal exactly when every positive-lag pair is uniformly distributed.
+  authors: [Sohail Farhangi]
+  responsible_maintainers: [Sohail Farhangi]
+  license: Apache-2.0
+
+sources:
+  - title: A generalization of van der Corput's Difference Theorem
+    authors: [Sohail Farhangi]
+    type: paper
+    id: https://arxiv.org/abs/2106.01123v6
+    location: Sections 1–4, with Palomar comparisons for Theorems 3.2, 3.3 and 3.5.
+    relationship: formalizes
+  - title: Topics in Ergodic Theory and Ramsey Theory
+    authors: [Sohail Farhangi]
+    type: other
+    id: https://etd.ohiolink.edu/acprod/odb_etd/r/etd/search/10?p10_accession_num=osu165203490336716
+    location: Theorem 2.4.17, cited as Theorem 3.4 in the article.
+    relationship: formalizes
+
+classification:
+  arxiv: [math.DS]
+  msc2020: [37A25, 11K06, 11K38, 37A30]
+
+automation:
+  methods:
+    - method: agent
+      models: [OpenAI GPT-6]
+      framework: OpenAI Codex
+      tool_setup: Lean and Mathlib in a pinned Lake environment, with compiler feedback and transitive axiom checks.
+      prompting_notes: The paper author requested the formalization and its publication packaging.
+
+status:
+  scope: >-
+    An existing substantial formalization of the difference theorems and other
+    covered results. PAPER_GUIDE.txt identifies proof coverage and gaps. The
+    substantive proof development is in the VdC library of this repository.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: [propext, Classical.choice, Quot.sound]
+
+fidelity:
+  divergences: >-
+    Lean uses zero-indexed sequences, tests all complex continuous functions on
+    the closed cube, and models the componentwise difference modulo one via
+    half-open representatives. Discrepancy is the closed-rectangle supremum.
+    Spectral measures are represented on the circle using complex autocorrelation
+    limits. The hypotheses of Theorems 3.2 and 3.3 take the length limsup before
+    the summation or the Cesàro limit over lags. The guide identifies the
+    paper's converse implications and background results outside this library.
+
+review:
+  status: agent-reviewed
+  notes: >-
+    OpenAI Codex materially produced the Lean formalization and packaging.
+    The responsible author and maintainer and SPDX license were confirmed by
+    the requesting paper author. External review is pending.
+
+alignment:
+  namespace: VdC.Submission
+  statements:
+    - source: Theorem 3.2
+      lean: VdC.Submission.spectral_difference
+      module: Palomar.Solution
+      status: proved
+    - source: Theorem 3.3
+      lean: VdC.Submission.weak_mixing_difference
+      module: Palomar.Solution
+      status: proved
+    - source: Theorem 3.5
+      lean: VdC.Submission.orthogonality_lag_pairs
+      module: Palomar.Solution
+      status: proved

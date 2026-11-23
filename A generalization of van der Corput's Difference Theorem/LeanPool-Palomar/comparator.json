@@ -1,0 +1,14 @@
+{
+  "challenge_module": "Palomar.Challenge",
+  "solution_module": "Palomar.Solution",
+  "theorem_names": [
+    "VdC.Submission.spectral_difference",
+    "VdC.Submission.weak_mixing_difference",
+    "VdC.Submission.orthogonality_lag_pairs"
+  ],
+  "permitted_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ]
+}
