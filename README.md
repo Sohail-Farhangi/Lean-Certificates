@@ -21,6 +21,6 @@ The reader guide identifies the statements and examples covered by this certific
 - [Paper](https://arxiv.org/abs/2106.01123v6)
 - [Lean Pool / Palomar project and README](A%20generalization%20of%20van%20der%20Corput%27s%20Difference%20Theorem/LeanPool-Palomar/README.md)
 - [Standalone source and reader guide](A%20generalization%20of%20van%20der%20Corput%27s%20Difference%20Theorem/Standalone/)
-- [Palomar modular snapshot](https://github.com/Sohail-Farhangi/Lean-Certificates/tree/ddcda4a6251d520a923d92dd810b0f07ccd13086) · ddcda4a6251d520a923d92dd810b0f07ccd13086
+- [Palomar modular snapshot](https://github.com/Sohail-Farhangi/Lean-Certificates/tree/d578352999e05efb68c488419bc83b5bf8fb6d11) · d578352999e05efb68c488419bc83b5bf8fb6d11
 
 The Lean certificate files are available under [Apache-2.0](LICENSE).

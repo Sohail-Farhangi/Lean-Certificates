@@ -18,7 +18,7 @@ public import Mathlib.Topology.Algebra.Order.LiminfLimsup
 open Filter Finset MeasureTheory
 open scoped BigOperators Topology
 
-namespace VdC
+namespace VdC.Submission
 
 noncomputable section
 
@@ -53,11 +53,12 @@ def NearlyWeakMixing (x : ℕ → ℂ) : Prop :=
   BoundedSeq x ∧ ∀ y N r, PermissibleTriple x y N → CorrLimits x y N r →
     Tendsto (realCesaro (fun h => ‖r (h + 1)‖)) atTop (𝓝 0)
 
-local instance : Fact (0 < (1 : ℝ)) := ⟨zero_lt_one⟩
-
-def circleHaar : Measure UnitAddCircle := AddCircle.haarAddCircle
+def circleHaar : Measure UnitAddCircle :=
+  letI : Fact (0 < (1 : ℝ)) := ⟨zero_lt_one⟩
+  AddCircle.haarAddCircle
 
 def measureFourier (μ : Measure UnitAddCircle) (n : ℤ) : ℂ :=
+  letI : Fact (0 < (1 : ℝ)) := ⟨zero_lt_one⟩
   ∫ x, fourier (-n) x ∂μ
 
 def HasSpectrum (r : ℕ → ℂ) (μ : FiniteMeasure UnitAddCircle) : Prop :=
@@ -114,6 +115,7 @@ def rectangleDiscrepancy {d : ℕ} (u : ℕ → Fin d → UnitInterval) (N : ℕ
     |rectangleFrequency u N ab.1 ab.2 - rectangleVolume ab.1 ab.2|)
 
 def unitRepresentative (t : UnitAddCircle) : UnitInterval :=
+  letI : Fact (0 < (1 : ℝ)) := ⟨zero_lt_one⟩
   let y := AddCircle.equivIco (1 : ℝ) (0 : ℝ) t
   ⟨y, ⟨y.property.1, by simpa only [zero_add] using y.property.2.le⟩⟩
 
@@ -122,8 +124,6 @@ def differenceDiscrepancy {d : ℕ} (x : ℕ → Torus d) (h N : ℕ) : ℝ :=
 
 def upperDifferenceDiscrepancy {d : ℕ} (x : ℕ → Torus d) (h : ℕ) : ℝ :=
   limsup (differenceDiscrepancy x h) atTop
-
-namespace Submission
 
 /-- Theorem 3.2. Square-summable upper lag discrepancies imply Lebesgue spectrum. -/
 theorem spectral_difference {d : ℕ} (x : ℕ → Cube d)
@@ -144,8 +144,6 @@ theorem orthogonality_lag_pairs {d : ℕ} (x : ℕ → Cube d) :
       Equidistributed ((cubeLebesgue d).prod (cubeLebesgue d)) (fun n ↦ (x n, x (n+h))) := by
   sorry
 
-end Submission
-
 end
 
-end VdC
+end VdC.Submission
