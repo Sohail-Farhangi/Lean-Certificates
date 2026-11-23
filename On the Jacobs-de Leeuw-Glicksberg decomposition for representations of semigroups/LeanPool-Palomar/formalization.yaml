@@ -1,0 +1,111 @@
+version: v0.4
+
+project:
+  name: Jacobs–de Leeuw–Glicksberg projections and return times
+  description: >-
+    For a semigroup representation with compact weak operator closure and a
+    unique minimal idempotent, the idempotent is a commuting projection onto
+    the reversible part along the almost weakly stable part. Idempotents in
+    the closure of the smallest ideal of the Stone–Čech semigroup give this
+    projection as a weak operator limit. Almost weak stability is equivalent
+    to thickly syndetic return to every weak neighborhood of zero. For a
+    weakly compact operator semigroup with a unique common fixed vector in
+    each orbit, the smallest ideal is a singleton and the reversible part
+    consists of the common fixed vectors. The compared statements include
+    admissibility for Lp contractions and relatively weakly compact group
+    representations, the Radon density-one criterion in nonseparable spaces,
+    the revised strict-convexity criterion in Theorem 1.2(iv), and a
+    Euclidean-plane counterexample to its public v3 statement.
+  authors: [Sohail Farhangi]
+  responsible_maintainers: [Sohail Farhangi]
+  license: Apache-2.0
+
+sources:
+  - title: On the Jacobs-de Leeuw-Glicksberg decomposition for representations of semigroups
+    authors: [Micky Barthmann, Sohail Farhangi, Yulia Kuznetsova]
+    type: paper
+    id: https://arxiv.org/abs/2509.24003v3
+    location: Sections 1–5. The alignment entries list the compared results.
+    relationship: formalizes
+  - title: Revised hypothesis for Theorem 1.2(iv)
+    type: conversation
+    authors: [Sohail Farhangi]
+    id: Personal communication from a paper coauthor, 23 November 2026
+    location: Revision of the strict-convexity criterion
+    relationship: formalizes
+    note: The revised theorem assumes that every operator in the semigroup is a contraction.
+
+classification:
+  arxiv: [math.FA, math.DS]
+  msc2020: [47A35, 43A65, 37A30, 37B05]
+
+automation:
+  methods:
+    - method: agent
+      models: [OpenAI GPT-6]
+      framework: OpenAI Codex
+      tool_setup: Lean and Mathlib in a pinned Lake environment, with direct compiler feedback and proof dependency audits.
+      prompting_notes: The requesting paper coauthor specified the contraction hypothesis in the revised Theorem 1.2(iv).
+
+status:
+  scope: Public arXiv v3 coverage plus the revised Theorem 1.2(iv), including the structural and reversible results,
+    measured stability and ultrafilter criteria, paper examples, and counterexamples
+    to printed claims. COVERAGE.md gives theorem-by-theorem scope and gaps.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: [propext, Classical.choice, Quot.sound]
+
+fidelity:
+  divergences: >-
+    The compared results use Mathlib's weak operator topology and its
+    separating-dual hypothesis, available for complex normed spaces. Discrete
+    semigroups enter through their Stone–Čech semigroup with Mathlib's
+    right-topological product. The unique-fixed-point statement identifies an
+    absorbing element of the operator semigroup explicitly.
+
+review:
+  status: agent-reviewed
+  notes: >-
+    Lean checking, transitive axiom audit, and local Comparator replay in
+    Lean and NanoDa with an additional con-ron pass. Human review of the
+    formalization is pending.
+
+alignment:
+  namespace: JdLG.Submission
+  statements:
+    - source: Equation (1) and Section 2.2
+      lean: JdLG.Submission.decomposition
+      module: Palomar.Solution
+      status: proved
+    - source: Theorem 5.2(i)
+      lean: JdLG.Submission.ultrafilter_projection
+      module: Palomar.Solution
+      status: proved
+    - source: Theorem 5.3(ii)
+      lean: JdLG.Submission.thicklySyndetic_returns
+      module: Palomar.Solution
+      status: proved
+    - source: Proposition 3.4
+      lean: JdLG.Submission.unique_fixed_points
+      module: Palomar.Solution
+      status: proved
+    - source: Theorem 1.2(v)
+      lean: JdLG.Submission.lp_contractions
+      module: Palomar.Solution
+      status: proved
+    - source: Corollary 1.4 for groups
+      lean: JdLG.Submission.group_admissible
+      module: Palomar.Solution
+      status: proved
+    - source: Theorem 4.2(vi) and (ix)
+      lean: JdLG.Submission.radon_density_one_weak_decay
+      module: Palomar.Solution
+      status: proved
+    - source: Revised Theorem 1.2(iv), with contractions
+      lean: JdLG.Submission.strict_convexity_contractions
+      module: Palomar.Solution
+      status: proved
+    - source: Counterexample to the public v3 statement of Theorem 1.2(iv)
+      lean: JdLG.Submission.strict_convexity_counterexample
+      module: Palomar.Solution
+      status: proved

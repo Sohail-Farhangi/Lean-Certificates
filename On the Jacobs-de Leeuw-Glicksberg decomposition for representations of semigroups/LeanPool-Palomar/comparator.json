@@ -1,0 +1,20 @@
+{
+  "challenge_module": "Palomar.Challenge",
+  "solution_module": "Palomar.Solution",
+  "theorem_names": [
+    "JdLG.Submission.decomposition",
+    "JdLG.Submission.ultrafilter_projection",
+    "JdLG.Submission.thicklySyndetic_returns",
+    "JdLG.Submission.unique_fixed_points",
+    "JdLG.Submission.lp_contractions",
+    "JdLG.Submission.group_admissible",
+    "JdLG.Submission.radon_density_one_weak_decay",
+    "JdLG.Submission.strict_convexity_contractions",
+    "JdLG.Submission.strict_convexity_counterexample"
+  ],
+  "permitted_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ]
+}
