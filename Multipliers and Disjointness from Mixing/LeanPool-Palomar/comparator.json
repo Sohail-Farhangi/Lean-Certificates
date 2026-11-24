@@ -1,0 +1,11 @@
+{
+  "challenge_module": "Palomar.Challenge",
+  "solution_module": "Palomar.Solution",
+  "theorem_names": [
+    "Mixing.Submission.strongMixing_duality",
+    "Mixing.Submission.partialRigidity_disjoint",
+    "Mixing.Submission.generated_multiplier",
+    "Mixing.Submission.nested_van_der_corput"
+  ],
+  "permitted_axioms": ["propext", "Classical.choice", "Quot.sound"]
+}
