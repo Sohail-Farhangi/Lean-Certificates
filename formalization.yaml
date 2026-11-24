@@ -1,0 +1,73 @@
+version: v0.4
+
+project:
+  name: Multipliers and Disjointness from Mixing
+  description: >-
+    Ultrafilter limits of Koopman operators define a mixing condition and a
+    complementary generation condition. The checked library studies their
+    disjointness and multiplier properties, partial rigidity, spectral
+    criteria, and the paper's examples.
+  authors: [Sohail Farhangi]
+  responsible_maintainers: [Sohail Farhangi]
+  license: Apache-2.0
+
+sources:
+  - title: Multipliers and Disjointness from Mixing
+    authors: [Sohail Farhangi, Joel Moreira, Rigoberto Zelada]
+    type: paper
+    id: https://arxiv.org/abs/2604.12915v2
+    location: PDF Theorems 2, 6, and 10 and Lemma 10 are the comparison targets.
+    relationship: formalizes
+
+classification:
+  arxiv: [math.DS, math.FA]
+  msc2020: [37A25, 37A30, 37A35, 47A35]
+
+automation:
+  methods:
+    - method: agent
+      models: [OpenAI GPT-6]
+      framework: OpenAI Codex
+      tool_setup: Lean 4.36.0 and pinned Mathlib with compiler and axiom-audit feedback.
+
+status:
+  scope: >-
+    Numbered results and examples of arXiv v2, including the countable
+    Lebesgue complement of ergodic nilrotations and the Chacon weak-limit
+    classification. The README maps each statement and describes the models.
+    The four comparison targets have proofs in the Solution module.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: [propext, Classical.choice, Quot.sound]
+
+fidelity:
+  divergences: >-
+    The theorem on partial rigidity and partial mixing applies to an
+    arbitrary ultrafilter, including the free ultrafilters in the paper.
+    Lemma 10 collects the coordinates before and after the tested coordinate
+    into two ordered ultrafilters. The generated σ-algebra explicitly
+    contains the measurable null sets.
+
+review:
+  status: agent-reviewed
+  notes: Local Lean verification. The submission and human review are pending.
+
+alignment:
+  namespace: Mixing.Submission
+  statements:
+    - source: Theorem 1.2
+      lean: Mixing.Submission.strongMixing_duality
+      module: Palomar.Solution
+      status: proved
+    - source: Theorem 5.1
+      lean: Mixing.Submission.partialRigidity_disjoint
+      module: Palomar.Solution
+      status: proved
+    - source: Theorem 6.3
+      lean: Mixing.Submission.generated_multiplier
+      module: Palomar.Solution
+      status: proved
+    - source: Lemma 10
+      lean: Mixing.Submission.nested_van_der_corput
+      module: Palomar.Solution
+      status: proved
