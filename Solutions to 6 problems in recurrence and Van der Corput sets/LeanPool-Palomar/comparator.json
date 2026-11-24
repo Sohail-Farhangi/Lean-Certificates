@@ -1,0 +1,26 @@
+{
+  "challenge_module": "Palomar.Challenge",
+  "solution_module": "Palomar.Solution",
+  "theorem_names": [
+    "SixProblems.Submission.paper_proposition2_1",
+    "SixProblems.Submission.paper_theorem2_2",
+    "SixProblems.Submission.paper_theorem2_2_abelian",
+    "SixProblems.Submission.paper_theorem3_3",
+    "SixProblems.Submission.paper_corollary3_4",
+    "SixProblems.Submission.paper_lemma3_1",
+    "SixProblems.Submission.paper_lemma3_2",
+    "SixProblems.Submission.paper_lemma4_2",
+    "SixProblems.Submission.paper_lemma4_3",
+    "SixProblems.Submission.paper_theorem5_3",
+    "SixProblems.Submission.paper_proposition4_5_euclidean",
+    "SixProblems.Submission.paper_theorem4_6",
+    "SixProblems.Submission.paper_lemma5_1",
+    "SixProblems.Submission.paper_lemma5_2",
+    "SixProblems.Submission.paper_theorem4_8"
+  ],
+  "permitted_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ]
+}

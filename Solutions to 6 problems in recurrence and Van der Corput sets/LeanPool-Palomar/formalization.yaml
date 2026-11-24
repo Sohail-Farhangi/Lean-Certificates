@@ -1,0 +1,115 @@
+version: v0.4
+
+project:
+  name: Solutions to 6 problems in recurrence and Van der Corput sets
+  description: >-
+    The formalization proves equivalences for nice measurable recurrence
+    and nice van der Corput sets, including partition regularity. It
+    relates ordinary van der Corput sets to compact-group tests in
+    dynamical systems and along prescribed left Følner sequences. A
+    Gaussian construction gives an equivalent L² recurrence condition.
+  authors: [Sohail Farhangi]
+  responsible_maintainers: [Sohail Farhangi]
+  license: Apache-2.0
+
+sources:
+  - title: Solutions to 6 problems in recurrence and Van der Corput sets
+    authors: [Sohail Farhangi, Saúl Rodríguez Martín]
+    type: paper
+    id: https://arxiv.org/abs/2609.07506v1
+    location: All numbered theorems, lemmas, and propositions, and Corollary 3.4.
+    relationship: formalizes
+
+classification:
+  arxiv: [math.DS, math.NT]
+
+automation:
+  methods:
+    - method: agent
+      models: [OpenAI GPT-6]
+      framework: OpenAI Codex
+      tool_setup: Lean 4.36.0 and pinned Mathlib with compiler and axiom-audit feedback.
+
+status:
+  scope: >-
+    All thirteen numbered theorems, lemmas and propositions and Corollary 3.4
+    of arXiv v1. The comparison includes both parts of Theorem 2.2.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: [propext, Classical.choice, Quot.sound]
+
+fidelity:
+  divergences: >-
+    The dynamical tests use standard Borel spaces. Pointwise bounded
+    representatives are equivalent to the essentially bounded tests.
+    Real and complex continuous tests for uniform distribution are
+    equivalent. Proposition 2.1 uses finite sets for tuples of distinct
+    group elements. Lemma 3.1 applies to any variable index type.
+
+review:
+  status: agent-reviewed
+  notes: Verified locally in Lean. Registry review is pending.
+
+alignment:
+  namespace: SixProblems.Submission
+  statements:
+    - source: Proposition 2.1
+      lean: SixProblems.Submission.paper_proposition2_1
+      module: Palomar.Solution
+      status: proved
+    - source: Theorem 2.2(a–e)
+      lean: SixProblems.Submission.paper_theorem2_2
+      module: Palomar.Solution
+      status: proved
+    - source: Theorem 2.2(f)
+      lean: SixProblems.Submission.paper_theorem2_2_abelian
+      module: Palomar.Solution
+      status: proved
+    - source: Theorem 3.3
+      lean: SixProblems.Submission.paper_theorem3_3
+      module: Palomar.Solution
+      status: proved
+    - source: Corollary 3.4
+      lean: SixProblems.Submission.paper_corollary3_4
+      module: Palomar.Solution
+      status: proved
+    - source: Lemma 3.1
+      lean: SixProblems.Submission.paper_lemma3_1
+      module: Palomar.Solution
+      status: proved
+    - source: Lemma 3.2
+      lean: SixProblems.Submission.paper_lemma3_2
+      module: Palomar.Solution
+      status: proved
+    - source: Lemma 4.2
+      lean: SixProblems.Submission.paper_lemma4_2
+      module: Palomar.Solution
+      status: proved
+    - source: Lemma 4.3
+      lean: SixProblems.Submission.paper_lemma4_3
+      module: Palomar.Solution
+      status: proved
+    - source: Theorem 5.3
+      lean: SixProblems.Submission.paper_theorem5_3
+      module: Palomar.Solution
+      status: proved
+    - source: Proposition 4.5
+      lean: SixProblems.Submission.paper_proposition4_5_euclidean
+      module: Palomar.Solution
+      status: proved
+    - source: Theorem 4.6
+      lean: SixProblems.Submission.paper_theorem4_6
+      module: Palomar.Solution
+      status: proved
+    - source: Lemma 5.1
+      lean: SixProblems.Submission.paper_lemma5_1
+      module: Palomar.Solution
+      status: proved
+    - source: Lemma 5.2
+      lean: SixProblems.Submission.paper_lemma5_2
+      module: Palomar.Solution
+      status: proved
+    - source: Theorem 4.8
+      lean: SixProblems.Submission.paper_theorem4_8
+      module: Palomar.Solution
+      status: proved

@@ -1,0 +1,9 @@
+module
+
+public import SixProblems.BernoulliProposition
+public import SixProblems.NiceEquivalence
+public import SixProblems.PartitionRegularityTheorems
+public import SixProblems.CompactVdC
+public import SixProblems.CorrespondenceTheorem
+public import SixProblems.OperatorialRecurrenceHilbert
+public import SixProblems.OperatorialRecurrenceSheppard

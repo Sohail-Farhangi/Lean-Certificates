@@ -32,4 +32,13 @@ The project covers the numbered results and examples, including the nilrotation 
 - [Standalone source and reader guide](Multipliers%20and%20Disjointness%20from%20Mixing/Standalone/)
 - [Palomar modular snapshot](https://github.com/Sohail-Farhangi/Lean-Certificates/tree/39106976fd4c17b1fc2387cea4ccb1f01dd768e7) · `39106976fd4c17b1fc2387cea4ccb1f01dd768e7`
 
+## Solutions to 6 problems in recurrence and Van der Corput sets
+
+The certificate covers all numbered theorems, lemmas, and propositions, plus Corollary 3.4. It includes both directions of Theorem 4.8 along the prescribed left Følner sequence.
+
+- [Paper](https://arxiv.org/abs/2609.07506v1)
+- [Lean Pool / Palomar project and README](Solutions%20to%206%20problems%20in%20recurrence%20and%20Van%20der%20Corput%20sets/LeanPool-Palomar/README.md)
+- [Standalone source and reader guide](Solutions%20to%206%20problems%20in%20recurrence%20and%20Van%20der%20Corput%20sets/Standalone/)
+- [Palomar modular snapshot](https://github.com/Sohail-Farhangi/Lean-Certificates/tree/2a7572272a980407852373e44a8b1a2636bec500) · `2a7572272a980407852373e44a8b1a2636bec500`
+
 The Lean certificate files are available under [Apache-2.0](LICENSE).
